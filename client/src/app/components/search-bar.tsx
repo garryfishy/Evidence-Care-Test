@@ -6,10 +6,12 @@ const SearchBar = ({ onSearchChange }: any) => {
   const handleSearch = () => {
     const encodedInput = encodeURIComponent(searchInput);
     window.history.pushState(null, "", `?name=${encodedInput}`);
-    onSearchChange(searchInput); // Call the callback with the searchInput value
+    onSearchChange(searchInput);
   };
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ): void => {
     if (event.key === "Enter") {
       handleSearch();
     }
@@ -24,7 +26,9 @@ const SearchBar = ({ onSearchChange }: any) => {
           placeholder="Enter an employee's name"
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
+            handleKeyDown(e);
+          }}
         />
         <button
           className="px-4 text-white bg-purple-600 border-l rounded"

@@ -13,13 +13,12 @@ const TreeHierarchy = () => {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  const fetchData = (name: string) => {
-    console.log(name, "<< name nih");
+  const fetchData = (name: any) => {
     const api = `http://localhost:9000/tree/${name}`;
     axios
       .get(api)
       .then((response) => {
-        response.data.data.map((e) => {
+        response.data.data.map((e: any) => {
           e.searchedName = name;
           return e;
         });

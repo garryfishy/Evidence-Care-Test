@@ -11,7 +11,6 @@ export class EmployeeController {
   static getTreeByName(req: Request, res: Response): void {
     const { name } = req.params;
     const { result, hierarchy } = EmployeeService.getTree(name);
-    console.log(name, "masuk ke si name hit");
 
     if (!result) {
       res
@@ -24,8 +23,6 @@ export class EmployeeController {
     const namesWithHierarchy: string[] = [];
     const namesWithMultipleManagers: string[] = [];
 
-    console.log("pass here 1 ================");
-
     result.forEach((e) => {
       if (e.getManagerId() === 0) {
         namesWithMultipleManagers.push(e.getName());
@@ -33,9 +30,6 @@ export class EmployeeController {
         namesWithHierarchy.push(e.getName());
       }
     });
-
-    console.log(namesWithHierarchy, "pass here 2 ================");
-
     if (!hierarchy) {
       errors.push(`${namesWithHierarchy.join(", ")} don't have a manager`);
     }
@@ -51,14 +45,8 @@ export class EmployeeController {
         errors.push(`${name} have multiple managers; ${managers.join(", ")}`);
       });
     }
-
     const status = errors.length > 1 ? 500 : 200;
     const success = errors.length === 1;
-
-    console.log(errors);
-
-    console.log(status, success, "pass here 3 ================");
-
     res
       .status(status)
       .json(
