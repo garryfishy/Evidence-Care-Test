@@ -2,66 +2,43 @@ import { Employee } from "../entity/EmployeeEntity";
 import { Helpers } from "../helpers";
 let example = [
   {
-    id: 1,
-    name: "raelynn",
-    managerId: null,
+    "id": 1,
+    "name": "lori",
+    "managerId": null
   },
   {
-    id: 2,
-    name: "darin",
-    managerId: 1,
+    "id": 2,
+    "name": "fletcher",
+    "managerId": 1
   },
   {
-    id: 3,
-    name: "kacie",
-    managerId: 1,
+    "id": 3,
+    "name": "tabitha",
+    "managerId": 1
   },
   {
-    id: 4,
-    name: "jordana",
-    managerId: 2,
+    "id": 4,
+    "name": "linton",
+    "managerId": 2
   },
   {
-    id: 5,
-    name: "everett",
-    managerId: 2,
+    "id": 5,
+    "name": "tressa",
+    "managerId": 3
   },
   {
-    id: 6,
-    name: "bertha",
-    managerId: 2,
+    "id": 5,
+    "name": "tressa",
+    "managerId": 1
   },
   {
-    id: 7,
-    name: "peg",
-    managerId: 3,
-  },
-  {
-    id: 8,
-    name: "hugh",
-    managerId: 3,
-  },
-  {
-    id: 9,
-    name: "eveleen",
-    managerId: 3,
-  },
-  {
-    id: 10,
-    name: "evelina",
-    managerId: 9,
-  },
-  {
-    id: 11,
-    name: "darin",
-    managerId: 5,
-  },
-  {
-    id: 12,
-    name: "darina",
-    managerId: 10,
-  },
-];
+    "id": 4,
+    "name": "linton",
+    "managerId": 3
+  }
+]
+
+
 
 // let example = [
 //   {
@@ -92,7 +69,7 @@ let example = [
 // ];
 
 const employees: Employee[] = example.map(
-  (item) => new Employee(item.id, item.name, item.managerId)
+  (item) => new Employee(item.id, item.name, item.managerId, false)
 );
 
 export class EmployeeService {
@@ -126,17 +103,15 @@ export class EmployeeService {
       : false;
   }
 
-  static getTree(name: string): any {
-    let result: any = [];
+  static getTree(name: string): {result: Employee[]|null, hierarchy: boolean | null} {
     let employee = this.getByName(name);
     if (employee.length > 0) {
-      if (employee.length === 1) {
-        let hasManager = EmployeeService.hasManager(name);
-        const hasDirectReports = EmployeeService.hasDirectReports(name);
-        if (!hasDirectReports && !hasManager) {
-          return result;
-        }
-        // == THIS CODE CAN BE USED IF YOU WANT TO GET ONLY HIERARCY FROM THE PERSON===
+        // let hasManager = EmployeeService.hasManager(name);
+        // const hasDirectReports = EmployeeService.hasDirectReports(name);
+        // if (!hasDirectReports && !hasManager) {
+        //   return result;
+        // }
+        // == THIS CODE CAN BE USED IF YOU WANT TO GET ONLY HIERARCHY FROM THE PERSON AND UP===
         // if (hasManager) {
         //   // let newEmployee: Employee | undefined = employee[0];
         //   // result.push(newEmployee);
@@ -154,11 +129,9 @@ export class EmployeeService {
         //   result.push(employee);
         //   result = this.buildHierarchy(employees);
         // }
-        result = Helpers.buildHierarchy(employees);
-      }
-      return result;
-    } else {
-      return null;
-    }
+        const {result, hierarchy} = Helpers.buildHierarchy(employees, name);
+      return {result, hierarchy};
+    } 
+    return {result: null, hierarchy: null}
   }
 }
