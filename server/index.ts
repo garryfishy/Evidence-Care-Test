@@ -4,7 +4,7 @@ import routes from "./routes";
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 3000;
+const port = 9000;
 app.use(routes);
 
 app.listen(port, () => {
