@@ -1,9 +1,29 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Tree, TreeNode } from "react-organizational-chart";
+import axios from "axios";
+import { useSearchParams } from "next/navigation";
 
 const EmployeeTree = ({ data }) => {
-  const renderTreeNode = (employee) => {
+  const [employee, setEmployee] = useState();
+  // const params = useParams();
+  const searchParams = useSearchParams();
+
+  const name = searchParams.get("name");
+
+  useEffect(() => {
+    console.log(name, "<< ini params");
+    const apiUrl = `http://localhost:9000/tree/${name}`;
+    axios
+      .get(apiUrl)
+      .then((e) => {
+        console.log(e.data, "eror");
+      })
+      .catch((err) => {
+        console.log(err.response.data);
+      });
+  }, [employee]);
+  const renderTreeNode = (employee: any) => {
     const labelStyle = {
       backgroundColor: "transparent",
       borderRadius: "5px",
@@ -102,7 +122,7 @@ const TreeHierarchy = () => {
         directReports: [],
       },
       {
-        id: 8,
+        id: 9,
         name: "linton",
         managerId: 0,
         foundEmployee: false,

@@ -3,40 +3,56 @@ import { Helpers } from "../helpers";
 let example = [
   {
     "id": 1,
-    "name": "lori",
+    "name": "raelynn",
     "managerId": null
   },
   {
     "id": 2,
-    "name": "fletcher",
+    "name": "darin",
     "managerId": 1
   },
   {
     "id": 3,
-    "name": "tabitha",
+    "name": "kacie",
     "managerId": 1
   },
   {
     "id": 4,
-    "name": "linton",
+    "name": "jordana",
     "managerId": 2
   },
   {
     "id": 5,
-    "name": "tressa",
+    "name": "everett",
+    "managerId": 2
+  },
+  {
+    "id": 6,
+    "name": "bertha",
+    "managerId": 2
+  },
+  {
+    "id": 7,
+    "name": "peg",
     "managerId": 3
   },
   {
-    "id": 5,
-    "name": "tressa",
-    "managerId": 1
+    "id": 8,
+    "name": "hugh",
+    "managerId": 3
   },
   {
-    "id": 4,
-    "name": "linton",
+    "id": 9,
+    "name": "eveleen",
     "managerId": 3
+  },
+  {
+    "id": 10,
+    "name": "evelina",
+    "managerId": 9
   }
 ]
+
 
 
 

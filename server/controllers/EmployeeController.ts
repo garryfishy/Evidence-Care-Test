@@ -11,7 +11,9 @@ export class EmployeeController {
   static getTreeByName(req: Request, res: Response): void {
     const { name } = req.params;
     const { result, hierarchy } = EmployeeService.getTree(name);
-  
+    console.log(name, "masuk ke si name hit")
+
+ 
     if (!result) {
       res.status(404).json(new ResponseEntity<null>(false, `User ${name} not found`, []));
       return;
@@ -20,6 +22,8 @@ export class EmployeeController {
     const errors: string[] = ['Cannot get hierarchy'];
     const namesWithHierarchy: string[] = [];
     const namesWithMultipleManagers: string[] = [];
+
+    console.log('pass here 1 ================')
   
     result.forEach(e => {
       if (e.getManagerId() === 0) {
@@ -28,7 +32,9 @@ export class EmployeeController {
         namesWithHierarchy.push(e.getName());
       }
     });
-  
+    
+    console.log(namesWithHierarchy, 'pass here 2 ================')
+    
     if (!hierarchy) {
       errors.push(`${namesWithHierarchy.join(", ")} don't have a manager`);
     }
@@ -48,7 +54,11 @@ export class EmployeeController {
   
     const status = errors.length > 0 ? 500 : 200;
     const success = errors.length === 0;
-  
+
+    console.log(errors)
+
+    console.log(status, success,'pass here 3 ================')
+
     res.status(status).json(new ResponseEntity<Employee[]>(
       success,
       success ? "Fetched" : errors.join('. '),
