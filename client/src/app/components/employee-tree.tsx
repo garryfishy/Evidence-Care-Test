@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Tree, TreeNode } from "react-organizational-chart";
 import { useSearchParams } from "next/navigation";
 
-const EmployeeTree = ({ data }) => {
+const EmployeeTree = ({ data }: any) => {
   const query = useSearchParams();
   const [name, setName] = useState(query.get("name"));
 
@@ -10,13 +10,12 @@ const EmployeeTree = ({ data }) => {
     setName(query.get("name"));
   }, [query]);
 
-  const renderTreeNode = (employee) => {
+  const renderTreeNode = (employee: any) => {
     const labelStyle = {
-      backgroundColor:
-        employee.name === data[0].searchedName ? "#0fbcf9" : "#d2dae2",
+      backgroundColor: employee.foundEmployee ? "#0fbcf9" : "#d2dae2",
       borderRadius: "5px",
       alignItems: "center",
-      color: employee.name === data[0].searchedName ? "#ff0000" : "#596275",
+      color: employee.foundEmployee ? "#ff0000" : "#596275",
       padding: "5px",
       display: "inline-block",
       border: "1px solid black",
@@ -32,7 +31,7 @@ const EmployeeTree = ({ data }) => {
     );
   };
 
-  const rootEmployees = data.filter((employee) => !employee.managerId);
+  const rootEmployees = data.filter((employee: any) => !employee.managerId);
   const tree = rootEmployees.map(renderTreeNode);
 
   return (

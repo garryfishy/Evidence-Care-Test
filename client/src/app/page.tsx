@@ -13,15 +13,31 @@ const TreeHierarchy = () => {
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const containsMaybeYouMean = errorMessage.includes("maybe you mean");
+
+  const addUnderlinesToName = (error: any) => {
+    const startIndex = error.indexOf("maybe you mean") + 15; // Adding 15 to account for the length of "maybe you mean"
+    const names = error.slice(startIndex);
+    const namesArray = names.match(/\b\w+\b/g);
+    return (
+      <>
+        {error.substring(0, startIndex)}
+        {namesArray.map((name: string, index: number) => (
+          <React.Fragment key={name}>
+            <u>
+              <a href={`?name=${name}`}>{name}</a>
+            </u>
+            {index < namesArray.length - 1 ? ", " : "?"}
+          </React.Fragment>
+        ))}
+      </>
+    );
+  };
   const fetchData = (name: any) => {
     const api = `http://localhost:9000/tree/${name}`;
     axios
       .get(api)
       .then((response) => {
-        response.data.data.map((e: any) => {
-          e.searchedName = name;
-          return e;
-        });
         setEmployee(response.data.data);
         setSuccess(response.data.success);
         setErrorMessage("");
@@ -50,8 +66,11 @@ const TreeHierarchy = () => {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
+            flexDirection: "column",
           }}
         >
+          <h2>Employee App </h2>
+          <br></br>
           <SearchBar onSearchChange={handleSearchChange} />
         </div>
       )}
@@ -90,7 +109,11 @@ const TreeHierarchy = () => {
           }}
         >
           <SearchBar onSearchChange={handleSearchChange} />
-          {errorMessage}
+          {containsMaybeYouMean ? (
+            <div>{addUnderlinesToName(errorMessage)}</div>
+          ) : (
+            <div>{errorMessage}</div>
+          )}
         </div>
       )}
     </>

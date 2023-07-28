@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1690518501651" clover="3.2.0">
+  <project timestamp="1690518501652" name="All files">
+    <metrics statements="78" coveredstatements="26" conditionals="19" coveredconditionals="4" methods="35" coveredmethods="16" elements="132" coveredelements="46" complexity="0" loc="78" ncloc="78" packages="3" files="3" classes="3"/>
+    <package name="entity">
+      <metrics statements="21" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="11" coveredmethods="4"/>
+      <file name="EmployeeEntity.ts" path="C:\Users\bboyf\Downloads\Evidence-Care-Test\server\entity\EmployeeEntity.ts">
+        <metrics statements="21" coveredstatements="9" conditionals="2" coveredconditionals="2" methods="11" coveredmethods="4"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="9" count="55" type="stmt"/>
+        <line num="10" count="55" type="stmt"/>
+        <line num="11" count="55" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="55" type="stmt"/>
+        <line num="13" count="55" type="stmt"/>
+        <line num="17" count="15" type="stmt"/>
+        <line num="21" count="11" type="stmt"/>
+        <line num="25" count="19" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="48" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="53" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="helpers">
+      <metrics statements="36" coveredstatements="2" conditionals="12" coveredconditionals="0" methods="10" coveredmethods="0"/>
+      <file name="index.ts" path="C:\Users\bboyf\Downloads\Evidence-Care-Test\server\helpers\index.ts">
+        <metrics statements="36" coveredstatements="2" conditionals="12" coveredconditionals="0" methods="10" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="16" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="33" count="0" type="stmt"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="42" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="61" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="62" count="0" type="stmt"/>
+        <line num="65" count="0" type="stmt"/>
+        <line num="69" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="services">
+      <metrics statements="21" coveredstatements="15" conditionals="5" coveredconditionals="2" methods="14" coveredmethods="12"/>
+      <file name="EmployeeService.ts" path="C:\Users\bboyf\Downloads\Evidence-Care-Test\server\services\EmployeeService.ts">
+        <metrics statements="21" coveredstatements="15" conditionals="5" coveredconditionals="2" methods="14" coveredmethods="12"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="84" count="1" type="stmt"/>
+        <line num="85" count="5" type="stmt"/>
+        <line num="88" count="1" type="stmt"/>
+        <line num="90" count="0" type="stmt"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="95" count="5" type="stmt"/>
+        <line num="100" count="8" type="stmt"/>
+        <line num="104" count="10" type="stmt"/>
+        <line num="108" count="3" type="stmt"/>
+        <line num="109" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="113" count="3" type="stmt"/>
+        <line num="114" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="115" count="7" type="stmt"/>
+        <line num="123" count="0" type="stmt"/>
+        <line num="124" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="148" count="0" type="stmt"/>
+        <line num="149" count="0" type="stmt"/>
+        <line num="151" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

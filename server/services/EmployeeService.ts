@@ -1,89 +1,12 @@
 import { Employee } from "../entity/EmployeeEntity";
 import { Helpers } from "../helpers";
-let example = [
-  {
-    "id": 1,
-    "name": "raelynn",
-    "managerId": null
-  },
-  {
-    "id": 2,
-    "name": "darin",
-    "managerId": 1
-  },
-  {
-    "id": 3,
-    "name": "kacie",
-    "managerId": 1
-  },
-  {
-    "id": 4,
-    "name": "jordana",
-    "managerId": 2
-  },
-  {
-    "id": 5,
-    "name": "everett",
-    "managerId": 2
-  },
-  {
-    "id": 6,
-    "name": "bertha",
-    "managerId": 2
-  },
-  {
-    "id": 7,
-    "name": "peg",
-    "managerId": 3
-  },
-  {
-    "id": 8,
-    "name": "hugh",
-    "managerId": 3
-  },
-  {
-    "id": 9,
-    "name": "eveleen",
-    "managerId": 3
-  },
-  {
-    "id": 10,
-    "name": "evelina",
-    "managerId": 9
-  }
-]
+import {
+  correctExample,
+  faultyExample,
+  anotherFaultyExamples,
+} from "../json/dummy";
 
-
-
-
-// let example = [
-//   {
-//     id: 1,
-//     name: "maurice",
-//     managerId: null,
-//   },
-//   {
-//     id: 2,
-//     name: "hayleigh",
-//     managerId: 1,
-//   },
-//   {
-//     id: 3,
-//     name: "edwyn",
-//     managerId: 1,
-//   },
-//   {
-//     id: 4,
-//     name: "keane",
-//     managerId: null,
-//   },
-//   {
-//     id: 5,
-//     name: "kylee",
-//     managerId: null,
-//   },
-// ];
-
+let example = faultyExample;
 const employees: Employee[] = example.map(
   (item) => new Employee(item.id, item.name, item.managerId, false)
 );
@@ -119,35 +42,40 @@ export class EmployeeService {
       : false;
   }
 
-  static getTree(name: string): {result: Employee[]|null, hierarchy: boolean | null} {
+  static getTree(name: string): {
+    result: Employee[] | null;
+    hierarchy: boolean | null;
+    similarName?: any[];
+  } {
     let employee = this.getByName(name);
     if (employee.length > 0) {
-        // let hasManager = EmployeeService.hasManager(name);
-        // const hasDirectReports = EmployeeService.hasDirectReports(name);
-        // if (!hasDirectReports && !hasManager) {
-        //   return result;
-        // }
-        // == THIS CODE CAN BE USED IF YOU WANT TO GET ONLY HIERARCHY FROM THE PERSON AND UP===
-        // if (hasManager) {
-        //   // let newEmployee: Employee | undefined = employee[0];
-        //   // result.push(newEmployee);
-        //   // while (hasManager) {
-        //   //   let id = Number(newEmployee!.getManagerId());
-        //   //   let manager = this.getById(id);
-        //   //   result.push(manager);
-        //   //   newEmployee = manager;
-        //   //   if (newEmployee!.getManagerId() === null) {
-        //   //     hasManager = false;
-        //   //   }
-        //   // }
-        //   result = this.buildHierarchy(employees);
-        // } else {
-        //   result.push(employee);
-        //   result = this.buildHierarchy(employees);
-        // }
-        const {result, hierarchy} = Helpers.buildHierarchy(employees, name);
-      return {result, hierarchy};
-    } 
-    return {result: null, hierarchy: null}
+      // let hasManager = EmployeeService.hasManager(name);
+      // const hasDirectReports = EmployeeService.hasDirectReports(name);
+      // if (!hasDirectReports && !hasManager) {
+      //   return result;
+      // }
+      // == THIS CODE CAN BE USED IF YOU WANT TO GET ONLY HIERARCHY FROM THE PERSON AND UP===
+      // if (hasManager) {
+      //   // let newEmployee: Employee | undefined = employee[0];
+      //   // result.push(newEmployee);
+      //   // while (hasManager) {
+      //   //   let id = Number(newEmployee!.getManagerId());
+      //   //   let manager = this.getById(id);
+      //   //   result.push(manager);
+      //   //   newEmployee = manager;
+      //   //   if (newEmployee!.getManagerId() === null) {
+      //   //     hasManager = false;
+      //   //   }
+      //   // }
+      //   result = this.buildHierarchy(employees);
+      // } else {
+      //   result.push(employee);
+      //   result = this.buildHierarchy(employees);
+      // }
+      const { result, hierarchy } = Helpers.buildHierarchy(employees, name);
+      return { result, hierarchy };
+    }
+    const similarName: any[] = Helpers.findSimilarNames(name, employees, 3);
+    return { result: null, hierarchy: null, similarName };
   }
 }
