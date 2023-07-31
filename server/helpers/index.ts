@@ -9,14 +9,14 @@ export class Helpers {
     let names: string[] = [];
     data.forEach((employee) => {
       names.push(employee.getName());
-      if (employee.getName() === name) {
+      if (employee.getName().toLowerCase() === name.toLowerCase()) {
         employee.setFoundEmployee(true);
       } else {
         employee.setFoundEmployee(false);
       }
       employeesById[employee.getId()] = employee;
     });
-    const dupes = this.findDuplicates(names);
+    const dupes: any[] = this.findDuplicates(names);
     const addSubordinates = (employee: Employee): Employee => {
       const subordinates = data.filter(
         (e) => e.getManagerId() === employee.getId()
@@ -40,10 +40,6 @@ export class Helpers {
           (el) =>
             el.getManagerId() === null && el.getDirectReports().length === 0
         );
-
-    dupes.forEach((e) => {
-      result.push(new Employee(data.length + 1, e, 0, false));
-    });
     return { result, hierarchy };
   }
 
@@ -103,7 +99,6 @@ export class Helpers {
 
   static containsNumberOrSpecialCharacters(input: string) {
     const pattern = /[0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
-
     return pattern.test(input);
   }
 }

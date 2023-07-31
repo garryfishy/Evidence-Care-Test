@@ -1,4 +1,6 @@
-const correctExample = [
+import { Employee } from "../entity/EmployeeEntity";
+
+const correctExampleData = [
   {
     id: 1,
     name: "raelynn",
@@ -51,7 +53,7 @@ const correctExample = [
   },
 ];
 
-const faultyExample = [
+const faultyExampleData = [
   {
     id: 1,
     name: "maurice",
@@ -79,7 +81,7 @@ const faultyExample = [
   },
 ];
 
-const anotherFaultyExamples = [
+const anotherFaultyExampleData = [
   {
     id: 1,
     name: "lori",
@@ -112,4 +114,22 @@ const anotherFaultyExamples = [
   },
 ];
 
-export { correctExample, faultyExample, anotherFaultyExamples };
+// Instantiate Employee objects
+const correctExample: Employee[] = correctExampleData.map(
+  (item) => new Employee(item.id, item.name, item.managerId, false)
+);
+
+const faultyExample: Employee[] = faultyExampleData.map(
+  (item) => new Employee(item.id, item.name, item.managerId, false)
+);
+
+const anotherFaultyExamples: Employee[] = anotherFaultyExampleData.map(
+  (item) => new Employee(item.id, item.name, item.managerId, false)
+);
+
+export {
+  correctExample,
+  correctExampleData,
+  faultyExample,
+  anotherFaultyExamples,
+};

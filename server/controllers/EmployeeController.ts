@@ -2,11 +2,6 @@ import { Request, Response } from "express";
 import { Employee } from "../entity/EmployeeEntity";
 import { ResponseEntity } from "../entity/ResponseEntity";
 import { EmployeeService } from "../services/EmployeeService";
-import {
-  correctExample,
-  faultyExample,
-  anotherFaultyExamples,
-} from "../json/dummy";
 import { Helpers } from "../helpers";
 export class EmployeeController {
   static getAllEmployees(req: Request, res: Response): void {
@@ -33,7 +28,7 @@ export class EmployeeController {
 
     let { result, hierarchy, similarName } = EmployeeService.getTree(name);
     if (!result) {
-      let errorMessage = `User ${name} not found`;
+      let errorMessage: string = `User ${name} not found`;
 
       errorMessage =
         similarName!.length > 0
@@ -74,7 +69,7 @@ export class EmployeeController {
     res
       .status(status)
       .json(
-        new ResponseEntity<Employee[]>(
+        new ResponseEntity<Employee>(
           success,
           success ? "Fetched" : errors.join(". "),
           result

@@ -5,12 +5,18 @@ export class Employee {
   private foundEmployee: boolean;
   private directReports: Employee[];
 
-  constructor(id: number, name: string, managerId: number | null, foundEmployee: boolean) {
+  constructor(
+    id: number,
+    name: string,
+    managerId: number | null,
+    foundEmployee: boolean,
+    directReports: Employee[] = []
+  ) {
     this.id = id;
     this.name = name;
     this.managerId = managerId !== null ? managerId : null;
     this.foundEmployee = foundEmployee;
-    this.directReports = [];
+    this.directReports = directReports;
   }
 
   getId(): number {
@@ -25,11 +31,11 @@ export class Employee {
     return this.managerId;
   }
 
-  getFoundEmployee(): boolean{
+  getFoundEmployee(): boolean {
     return this.foundEmployee;
   }
 
-  getDirectReports(): Employee[]{
+  getDirectReports(): Employee[] {
     return this.directReports;
   }
 
@@ -38,7 +44,7 @@ export class Employee {
     return this;
   }
 
-  setName(name: string): Employee{
+  setName(name: string): Employee {
     this.name = name;
     return this;
   }
@@ -53,7 +59,7 @@ export class Employee {
     return this;
   }
 
-  setDirectReports(directReports: Employee[]): Employee{
+  setDirectReports(directReports: Employee[]): Employee {
     this.directReports = directReports;
     return this;
   }

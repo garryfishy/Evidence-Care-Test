@@ -9,6 +9,7 @@ const TreeHierarchy = () => {
   const query = useSearchParams();
   const initialName = query.get("name");
   const [name, setName] = useState(initialName);
+  const [allEmployees, setAllEmployees] = useState([]);
   const [employee, setEmployee] = useState([]);
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -33,10 +34,22 @@ const TreeHierarchy = () => {
       </>
     );
   };
-  const fetchData = (name: any) => {
-    const api = `http://localhost:9000/tree/${name}`;
+  const api = `http://localhost:9000/`;
+
+  const fetchAllEmployee = () => {
     axios
-      .get(api)
+      .get(api + "all")
+      .then((res) => {
+        setAllEmployees(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching all employees:", error);
+      });
+  };
+
+  const fetchData = (name: any) => {
+    axios
+      .get(api + `tree/${name}`)
       .then((response) => {
         setEmployee(response.data.data);
         setSuccess(response.data.success);
@@ -50,7 +63,12 @@ const TreeHierarchy = () => {
   };
 
   useEffect(() => {
-    fetchData(name);
+    if (allEmployees.length == 0) {
+      fetchAllEmployee();
+    }
+    if (name) {
+      fetchData(name);
+    }
   }, [name]);
 
   const handleSearchChange = (searchInput: string) => {
@@ -58,18 +76,35 @@ const TreeHierarchy = () => {
   };
 
   return (
-    <>
+    <div
+      style={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        flexDirection: "column",
+      }}
+    >
+      <h2>Employee App </h2>
+      <div
+        style={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: "10px 10px",
+          backgroundColor: "white",
+          borderRadius: "10px",
+          margin: "10px",
+          padding: "10px",
+        }}
+      >
+        {allEmployees?.map((em: any) => (
+          <div key={em.id} style={{ flex: "0 0 calc(25% - 10px)" }}>
+            {em.name}
+          </div>
+        ))}
+      </div>
       {!name && (
-        <div
-          style={{
-            height: "100vh",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-          }}
-        >
-          <h2>Employee App </h2>
+        <div>
           <br></br>
           <SearchBar onSearchChange={handleSearchChange} />
         </div>
@@ -77,31 +112,19 @@ const TreeHierarchy = () => {
       {success && name && (
         <div
           style={{
-            height: "100vh",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
             flexDirection: "column",
           }}
         >
-          <div
-            style={{
-              height: "100vh",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <SearchBar onSearchChange={handleSearchChange} />
-            <EmployeeTree data={employee} />
-          </div>
+          <SearchBar onSearchChange={handleSearchChange} />
+          <EmployeeTree data={employee} />
         </div>
       )}
       {!success && name && (
         <div
           style={{
-            height: "100vh",
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
@@ -116,7 +139,7 @@ const TreeHierarchy = () => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 

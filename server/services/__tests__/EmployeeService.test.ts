@@ -1,54 +1,9 @@
 import { Employee } from "../../entity/EmployeeEntity";
 import { EmployeeService } from "../EmployeeService";
+import { correctExample } from "../../json/dummy";
 
 describe("EmployeeService", () => {
-  const employees = [
-    {
-      id: 1,
-      name: "maurice",
-      managerId: null,
-      foundEmployee: false,
-      directReports: [],
-    },
-    {
-      id: 2,
-      name: "hayleigh",
-      managerId: 1,
-      foundEmployee: false,
-      directReports: [],
-    },
-    {
-      id: 3,
-      name: "edwyn",
-      managerId: 1,
-      foundEmployee: false,
-      directReports: [],
-    },
-    {
-      id: 4,
-      name: "keane",
-      managerId: null,
-      foundEmployee: false,
-      directReports: [],
-    },
-    {
-      id: 5,
-      name: "kylee",
-      managerId: null,
-      foundEmployee: false,
-      directReports: [],
-    },
-  ];
-
-  beforeEach(() => {
-    EmployeeService.getAll = jest
-      .fn()
-      .mockReturnValue(
-        employees.map(
-          (item) => new Employee(item.id, item.name, item.managerId, false)
-        )
-      );
-  });
+  const employees = correctExample;
 
   describe("getAll", () => {
     it("should return all employees", () => {
@@ -62,7 +17,7 @@ describe("EmployeeService", () => {
       const name = "hayleigh";
       const hayleighEmployees = EmployeeService.getByName(name);
       const expectedEmployees = employees.filter(
-        (e) => e.name.toLowerCase() === name.toLowerCase()
+        (e) => e.getName().toLowerCase() === name.toLowerCase()
       );
       expect(hayleighEmployees).toEqual(expectedEmployees);
     });
@@ -72,7 +27,7 @@ describe("EmployeeService", () => {
     it("should return the employee with the given ID", () => {
       const id = 3;
       const employee = EmployeeService.getById(id);
-      const expectedEmployee = employees.find((e) => e.id === id);
+      const expectedEmployee = employees.find((e) => e.getId() === id);
       expect(employee).toEqual(expectedEmployee);
     });
 
@@ -88,7 +43,7 @@ describe("EmployeeService", () => {
       const managerId = 1;
       const managerEmployees = EmployeeService.getByManagerId(managerId);
       const expectedEmployees = employees.filter(
-        (e) => e.managerId === managerId
+        (e) => e.getManagerId() === managerId
       );
       expect(managerEmployees).toEqual(expectedEmployees);
     });
@@ -102,13 +57,13 @@ describe("EmployeeService", () => {
 
   describe("hasManager", () => {
     it("should return true for employees with a manager", () => {
-      const name = "hayleigh";
+      const name = "evelina";
       const hasManager = EmployeeService.hasManager(name);
       expect(hasManager).toBe(true);
     });
 
     it("should return false for employees without a manager", () => {
-      const name = "maurice";
+      const name = "raelynn";
       const hasManager = EmployeeService.hasManager(name);
       expect(hasManager).toBe(false);
     });
@@ -116,13 +71,13 @@ describe("EmployeeService", () => {
 
   describe("hasDirectReports", () => {
     it("should return true for employees with direct reports", () => {
-      const name = "maurice";
+      const name = "raelynn";
       const hasDirectReports = EmployeeService.hasDirectReports(name);
       expect(hasDirectReports).toBe(true);
     });
 
     it("should return false for employees without direct reports", () => {
-      const name = "hayleigh";
+      const name = "evelina";
       const hasDirectReports = EmployeeService.hasDirectReports(name);
       expect(hasDirectReports).toBe(false);
     });

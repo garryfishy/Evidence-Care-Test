@@ -6,10 +6,8 @@ import {
   anotherFaultyExamples,
 } from "../json/dummy";
 
-let example = faultyExample;
-const employees: Employee[] = example.map(
-  (item) => new Employee(item.id, item.name, item.managerId, false)
-);
+let example = correctExample;
+const employees: Employee[] = example;
 
 export class EmployeeService {
   static getAll(): Employee[] {
@@ -32,7 +30,7 @@ export class EmployeeService {
 
   static hasManager(name: string): boolean {
     const employee = employees.find((e) => e.getName() === name);
-    return employee ? employee.getManagerId() !== null : false;
+    return employee?.getManagerId() ? true : false;
   }
 
   static hasDirectReports(name: string): boolean {
@@ -49,33 +47,10 @@ export class EmployeeService {
   } {
     let employee = this.getByName(name);
     if (employee.length > 0) {
-      // let hasManager = EmployeeService.hasManager(name);
-      // const hasDirectReports = EmployeeService.hasDirectReports(name);
-      // if (!hasDirectReports && !hasManager) {
-      //   return result;
-      // }
-      // == THIS CODE CAN BE USED IF YOU WANT TO GET ONLY HIERARCHY FROM THE PERSON AND UP===
-      // if (hasManager) {
-      //   // let newEmployee: Employee | undefined = employee[0];
-      //   // result.push(newEmployee);
-      //   // while (hasManager) {
-      //   //   let id = Number(newEmployee!.getManagerId());
-      //   //   let manager = this.getById(id);
-      //   //   result.push(manager);
-      //   //   newEmployee = manager;
-      //   //   if (newEmployee!.getManagerId() === null) {
-      //   //     hasManager = false;
-      //   //   }
-      //   // }
-      //   result = this.buildHierarchy(employees);
-      // } else {
-      //   result.push(employee);
-      //   result = this.buildHierarchy(employees);
-      // }
       const { result, hierarchy } = Helpers.buildHierarchy(employees, name);
       return { result, hierarchy };
     }
-    const similarName: any[] = Helpers.findSimilarNames(name, employees, 3);
+    const similarName: string[] = Helpers.findSimilarNames(name, employees, 3);
     return { result: null, hierarchy: null, similarName };
   }
 }
