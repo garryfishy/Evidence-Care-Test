@@ -24,10 +24,12 @@ const expectedResult = [raelynn];
 describe("EmployeeController", () => {
   describe("getAllEmployees", () => {
     it("should return all employees", () => {
+      const example = "correct";
+      const mockRequest: Request = { params: { example } } as any;
       const mockResponse: Response = { json: jest.fn() } as any;
       EmployeeService.getAll = jest.fn().mockReturnValue(correctExample);
 
-      EmployeeController.getAllEmployees({} as Request, mockResponse);
+      EmployeeController.getAllEmployees(mockRequest, mockResponse);
 
       expect(mockResponse.json).toHaveBeenCalledWith(correctExample);
     });

@@ -49,7 +49,7 @@ const TreeHierarchy = () => {
       </>
     );
   };
-  const api = `http://localhost:900/`;
+  const api = `http://localhost:9000/`;
 
   const fetchAllEmployee = () => {
     axios

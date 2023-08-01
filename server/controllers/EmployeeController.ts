@@ -3,7 +3,7 @@ import { Employee } from "../entity/EmployeeEntity";
 import { ResponseEntity } from "../entity/ResponseEntity";
 import { EmployeeService } from "../services/EmployeeService";
 import { Helpers } from "../helpers";
-import { correctExample } from "../json/dummy";
+
 export class EmployeeController {
   static getAllEmployees(req: Request, res: Response): void {
     const { example } = req.params;

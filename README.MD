@@ -16,6 +16,7 @@
 - go to the server directory and run test
 - ```bash
   cd server
+  npm install
   npm run test
   ```
 
