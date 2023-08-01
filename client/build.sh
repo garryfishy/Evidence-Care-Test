@@ -1,1 +1,1 @@
-docker build -t garryfishy/evi-client .
+docker build --no-cache -t garryfishy/evi-client .

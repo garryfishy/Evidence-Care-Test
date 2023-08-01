@@ -2,8 +2,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import SearchBar from "./components/search-bar";
-import EmployeeTree from "./components/employee-tree";
+import dynamic from "next/dynamic";
+
+const SearchBar = dynamic(() => import("./components/search-bar"));
+const EmployeeTree = dynamic(() => import("./components/employee-tree"));
 
 const TreeHierarchy = () => {
   const query = useSearchParams();
@@ -13,6 +15,7 @@ const TreeHierarchy = () => {
   const [employee, setEmployee] = useState([]);
   const [success, setSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [filter, setFilter] = useState("correct");
 
   const containsMaybeYouMean = errorMessage.includes("maybe you mean");
 
@@ -25,20 +28,32 @@ const TreeHierarchy = () => {
         {error.substring(0, startIndex)}
         {namesArray.map((name: string, index: number) => (
           <React.Fragment key={name}>
-            <u>
-              <a href={`?name=${name}`}>{name}</a>
-            </u>
+            <button
+              onClick={() => {
+                handleNameClick(name);
+              }}
+              style={{
+                background: "transparent",
+                border: "none",
+                padding: 0,
+                textDecoration: "none",
+              }}
+            >
+              <u>
+                <span>{name}</span>
+              </u>
+            </button>
             {index < namesArray.length - 1 ? ", " : "?"}
           </React.Fragment>
         ))}
       </>
     );
   };
-  const api = `http://localhost:9000/`;
+  const api = `http://localhost:900/`;
 
   const fetchAllEmployee = () => {
     axios
-      .get(api + "all")
+      .get(api + `all/${filter}`)
       .then((res) => {
         setAllEmployees(res.data);
       })
@@ -49,7 +64,7 @@ const TreeHierarchy = () => {
 
   const fetchData = (name: any) => {
     axios
-      .get(api + `tree/${name}`)
+      .get(api + `tree/${filter}/${name}`)
       .then((response) => {
         setEmployee(response.data.data);
         setSuccess(response.data.success);
@@ -62,12 +77,26 @@ const TreeHierarchy = () => {
       });
   };
 
+  const handleFilter = (value: string) => {
+    setFilter(value);
+  };
+
+  const handleNameClick = (name: string) => {
+    setName(name);
+  };
+
   useEffect(() => {
-    if (allEmployees.length == 0) {
-      fetchAllEmployee();
-    }
-    if (name) {
-      fetchData(name);
+    fetchAllEmployee();
+  }, [filter]);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if (allEmployees.length === 0) {
+        fetchAllEmployee();
+      }
+      if (name) {
+        fetchData(name);
+      }
     }
   }, [name]);
 
@@ -86,6 +115,33 @@ const TreeHierarchy = () => {
       }}
     >
       <h2>Employee App </h2>
+      {filter + " "} employees
+      <div style={{ margin: "20px 0" }}>
+        <button
+          onClick={(e) => {
+            handleFilter("correct");
+          }}
+          style={{ margin: "5px" }}
+        >
+          Correct Examples
+        </button>
+        <button
+          onClick={(e) => {
+            handleFilter("faulty");
+          }}
+          style={{ margin: "5px" }}
+        >
+          Faulty Examples 1
+        </button>
+        <button
+          onClick={(e) => {
+            handleFilter("anotherfaulty");
+          }}
+          style={{ margin: "5px" }}
+        >
+          Faulty Examples 2
+        </button>
+      </div>
       <div
         style={{
           display: "flex",
