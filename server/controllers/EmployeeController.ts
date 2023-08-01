@@ -3,14 +3,16 @@ import { Employee } from "../entity/EmployeeEntity";
 import { ResponseEntity } from "../entity/ResponseEntity";
 import { EmployeeService } from "../services/EmployeeService";
 import { Helpers } from "../helpers";
+import { correctExample } from "../json/dummy";
 export class EmployeeController {
   static getAllEmployees(req: Request, res: Response): void {
-    const result = EmployeeService.getAll();
+    const { example } = req.params;
+    const result = EmployeeService.getAll(example);
     res.json(result);
   }
 
   static getTreeByName(req: Request, res: Response): void {
-    const { name } = req.params;
+    const { name, example } = req.params;
 
     const checkSpecialCharacters =
       Helpers.containsNumberOrSpecialCharacters(name);
@@ -26,7 +28,10 @@ export class EmployeeController {
         );
     }
 
-    let { result, hierarchy, similarName } = EmployeeService.getTree(name);
+    let { result, hierarchy, similarName } = EmployeeService.getTree(
+      name,
+      example
+    );
     if (!result) {
       let errorMessage: string = `User ${name} not found`;
 
@@ -41,7 +46,6 @@ export class EmployeeController {
     const errors: string[] = ["Cannot get hierarchy"];
     const namesWithHierarchy: string[] = [];
     const namesWithMultipleManagers: string[] = [];
-
     result.forEach((e) => {
       if (e.getManagerId() === 0) {
         namesWithMultipleManagers.push(e.getName());

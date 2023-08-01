@@ -7,7 +7,7 @@ describe("EmployeeService", () => {
 
   describe("getAll", () => {
     it("should return all employees", () => {
-      const allEmployees = EmployeeService.getAll();
+      const allEmployees = EmployeeService.getAll("correct");
       expect(allEmployees).toEqual(employees);
     });
   });

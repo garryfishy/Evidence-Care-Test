@@ -6,11 +6,16 @@ import {
   anotherFaultyExamples,
 } from "../json/dummy";
 
-let example = correctExample;
-const employees: Employee[] = example;
+let employees: Employee[] = correctExample;
 
 export class EmployeeService {
-  static getAll(): Employee[] {
+  static getAll(examples: string): Employee[] {
+    employees =
+      examples === "correct"
+        ? correctExample
+        : examples === "faulty"
+        ? faultyExample
+        : anotherFaultyExamples;
     return employees;
   }
 
@@ -40,12 +45,21 @@ export class EmployeeService {
       : false;
   }
 
-  static getTree(name: string): {
+  static getTree(
+    name: string,
+    examples: string
+  ): {
     result: Employee[] | null;
     hierarchy: boolean | null;
     similarName?: any[];
   } {
     let employee = this.getByName(name);
+    employees =
+      examples === "correct"
+        ? correctExample
+        : examples === "faulty"
+        ? faultyExample
+        : anotherFaultyExamples;
     if (employee.length > 0) {
       const { result, hierarchy } = Helpers.buildHierarchy(employees, name);
       return { result, hierarchy };

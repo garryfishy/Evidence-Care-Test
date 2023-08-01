@@ -17,6 +17,7 @@ export class Helpers {
       employeesById[employee.getId()] = employee;
     });
     const dupes: any[] = this.findDuplicates(names);
+
     const addSubordinates = (employee: Employee): Employee => {
       const subordinates = data.filter(
         (e) => e.getManagerId() === employee.getId()
@@ -28,12 +29,16 @@ export class Helpers {
       .filter((e) => e.getManagerId() === null)
       .map(addSubordinates);
     let hierarchy = true;
+
     result.forEach((el) => {
       if (el.getManagerId() === null && el.getDirectReports().length === 0) {
         hierarchy = false;
       }
     });
-
+    dupes.forEach((e) => {
+      result.push(new Employee(result.length + 1, e, 0, false, []));
+      return { result, hierarchy: true };
+    });
     result = hierarchy
       ? result
       : result.filter(
